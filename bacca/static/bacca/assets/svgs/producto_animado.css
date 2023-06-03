@@ -1,0 +1,11 @@
+.line-stand {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: stand-appear 4s ease-out forwards;
+}
+
+@keyframes stand-appear {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

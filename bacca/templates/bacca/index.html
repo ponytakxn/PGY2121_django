@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECommerce Bacca</title>
+  <link rel="stylesheet" href="{% static 'bacca/styles/reset.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'bacca/styles/login.css' %}">
+  <link rel="stylesheet" href="{% static 'bacca/styles/main.css' %}">
+</head>
+
+<body class="container-fluid p-0">
+  
+  <!--BLUR CONTAINER-->
+  <div id="blur-filter"></div>
+
+  <!-- MAIN ROW - MAIN WRAPPER -->
+  <div class="row no-gutters">
+
+    <!-- NAVBAR -->
+    <header class="navbar-blur-bg">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-none">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'bacca/assets/svgs/logo_bacca.svg' %}" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon-close">X</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav active ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Inicio</a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="#productos">Productos</a>
+            </li>
+
+            <li class="nav-item" role="button">
+              <div class="nav-link">
+                <div class="nav-icons-container">
+                  <span data-currency="CLP Peso" data-symbol="$" href="#">CLP $</span>
+                  <img src="{% static 'bacca/assets/svgs/icons/currency_symbol.svg' %}" alt="Moneda" class="nav-link-carrito">
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="nav-link">
+                <div class="nav-icons-container">
+                  <button data-toggle="collapse" data-target="#carritoCompras" type="button" aria-expanded="false" aria-controls="carritoCompras">Carrito (2)
+                    <img src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}" alt="Carrito" class="nav-link-carrito">
+                  </button>
+                </div> 
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#contacto">Contáctanos</a>
+            </li>
+
+            <li class="nav-item nav-login">
+              <div class="nav-link">
+                <div class="nav-icons-container">
+                  <a id="login-form-btn" type="button">Iniciar Sesión</a>
+                  <img src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}" alt="Iniciar Sesión">
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item nav-logout">
+              <div class="nav-link">
+                <div class="nav-icons-container">
+                  <span id="user-email"></span>
+                  <img src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}" alt="Nombre usuario">
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item nav-logout">
+              <div class="nav-link">
+                <div class="nav-icons-container">
+                  <a id="logout-btn" type="button">Cerrar Sesión</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+  <!-- END NAVBAR -->
+
+  <!--INICIO DE SESION-->
+  <div class="form-container">
+    <div class="box">
+        <h3>Inicio Sesión</h3>
+        <div class="input-box">
+            <form id="login-form" action="#">
+                <div class="email-box login-box">
+                  <label for="login_email">Ingrese email</label>
+                  <input class="login-input" placeholder="tuemail@correo.com" name="login_email" id="login_email">
+                  <label id="login_email_err"></label>
+                </div>
+                <div class="password-box login-box">
+                  <label for="login_clave">Contraseña</label>
+                  <input class="login-input" type="Password" placeholder="*******" name="login_clave" id="login_clave">
+                  <label id="login_clave_err"></label>
+                </div>
+              <div class="mt-5">
+                <button class="login-buttons login-btn" type="submit">Ingresar</button>
+                <button class="login-buttons cancel-btn">Cancelar</button>
+              </div>
+            </form>    
+        </div>
+
+      
+    </div>
+  </div>
+  <!--END INICIO DE SESION-->
+
+  <!--  MAIN SITE WRAPPER -->
+  <div class="main">
+
+    <!--  HERO -->
+    <div class="hero">
+      <div class="scrolldown" id="scrollDown">
+        <img src="{% static 'bacca/assets/svgs/icons/arrow_down.svg' %}" class="scrolldown-icon" alt="">
+      </div>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-container">
+        <object id="dynamic-svg" type="image/svg+xml" data="{% static 'bacca/assets/svgs/producto_animado.svg' %}"></object>
+        <h2 class="text-light text-wrap">Productos de calidad, hechos a manos por luthiers nacionales.</h2>
+        <blockquote class="blockquote">
+          <p class="mb-0">"Hechos para <mark>toda la vida.</mark>"</p>
+          <div class="blockquote-footer">Rolling Stones Magazine.</div>
+        </blockquote>
+        <button class="btn btn-outline-light btn-sub-hero">Ver todos nuestros productos <img src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}" class="btn-sub-hero-icon--eye" /></button>
+      </div>
+    </div>
+    <!--  END HERO -->
+
+
+    <!--  SECCIÓN: PRODUCTOS -->
+    <section class="section-productos" id="productos">
+
+      <div class="section-productos-grid">
+        <h1 class="text-light heading-grande mb-5">Nuestros Productos</h1>
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+          <div class="row">
+            <div class="col">
+              <div class="producto-container-producto">
+                <a style="text-decoration: none;" href="#">
+                  <div class="producto-overlay">
+                    <img src="{% static 'bacca/assets/imgs/products/desktop.png' %}" alt="">
+                    <h3 class="text-light">Stand Praga $16000</h3>
+                    <div class="producto-detalle">
+                      <div class="row w-100 justify-content-center align-items-center">
+                        <div class="col d-flex justify-content-center text-light">Ver más <img src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}" /></div>
+                        <div class="col d-flex justify-content-center text-light">Ver Stock <img src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}" /></div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  FIN SECCIÓN: PRODUCTOS -->
+
+
+    <!--  SECCIÓN: CONTACTO -->
+    <section class="section-contacto" id="contacto">
+
+      <div class="section-productos-grid">
+        <h1 class="text-light heading-grande mb-5">Contáctanos!</h1>
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+
+          <div class="row">
+
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="usr_pnombre">Primer Nombre</label>
+                  <input type="text" class="form-control" id="usr_pnombre" name="usr_pnombre" value="Juanita">
+                  <label id="usr_pnombre_err"></label>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="usr_papellido">Apellido</label>
+                  <input type="text" class="form-control" id="usr_papellido" name="usr_papellido" value="Reyes" >
+                  <label id="usr_papellido_err"></label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="usr_comuna">Comuna</label>
+                  <input type="text" class="form-control" id="usr_comuna" name="usr_comuna">
+                  <label id="usr_comuna_err"></label>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="usr_provincia">Provincia</label>
+                  <select class="custom-select" id="usr_provincia" name="usr_provincia">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>Valparaíso</option>
+                    <option>Marga Marga</option>
+                    <option>Petorca</option>
+                    <option>Quillota</option>
+                    <option>San Antonio</option>
+                  </select>
+                  <label id="usr_provincia_err"></label>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="usr_codpostal">Código Postal</label>
+                  <input type="text" class="form-control" id="usr_codpostal" name="usr_codpostal">
+                  <label id="usr_codpostal_err"></label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="usr_solicitud">Escribe aquí tu solicitud:</label>
+                <textarea class="form-control" id="usr_solicitud" rows="3" name="usr_solicitud"></textarea>
+                <label id="usr_solicitud_err"></label>
+              </div>
+
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="usr_aceptocondiciones" name="usr_aceptocondiciones">
+                  <label class="form-check-label" for="usr_aceptocondiciones">
+                    Acepto que Bacca me contacte de vuelta
+                  </label>
+
+                </div><label id="usr_aceptocondiciones_err"></label>
+              </div>
+              <button class="btn btn-contacto checkout-btn" type="submit">
+                <span>Enviar Solicitud</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  FIN SECCIÓN: CONTACTO -->
+
+
+    <!--FOOTER -->
+    <footer class="footer">
+      <div class="row d-flex footer-container">
+
+        <div class="col-sm-4  px-4">
+          <div class="container" id="suscripcion">
+            <div class="container-body">
+              <h5 class="container-title">Suscríbete al Newsletter!</h5>
+              <p class="container-text">& obtén descuentos exclusivos</p>
+              <form for="email" class="mb-3">
+                <input type="email" id="email" name="email" placeholder="tu-email@aqui.com" class="footer-input-email">
+              </form>
+              <p>Al suscribirme acepto la <a href="#">política de privacidad.</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 px-4 my-4 mt-sm-0">
+          <div class="container" id="rs">
+            <div class="container-body form-newsletter">
+              <h5 class="title">Síguenos</h5>
+              <div class="follow-list">
+                <a href="https://www.facebook.com/bacca.online/">
+                  <img src="{% static 'bacca/assets/imgs/logo-facebook.png' %}" alt="imagen-facebook" width="20" height="19">
+                </a>
+                <a href="https://www.instagram.com/bacca.online/">
+                  <img src="{% static 'bacca/assets/imgs/pngwing.com.png' %}" alt="imagen-facebook" width="20" height="19"> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 px-4 mt-4 mt-sm-0">
+          <div class="container" id="servicioc">
+            <div class="container-body">
+              <h5 class="title">Servicio Al Cliente</h5>
+              <ul class="container-body-list">
+                <li>
+                  <a class="link-footer" href="#">Contáctanos</a>
+                </li>
+                <li>
+                  <a class="link-footer" href="#">Política de Privacidad</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-sm-center py-3">
+        <div class="col-sm-auto">
+          <div class="container w-100 text-center">
+            <div class="container-body text-center w-100">
+              Diseñado por <a href="https://github.com/ponytakxn">@ponytkxn</a>, <a href="https://github.com/wwiiddeeweb">@wwiiddeeweb</a> y <a href="https://github.com/MnzBl">@mnzbl</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--FIN FOOTER-->
+
+    <!--CARRITO-->
+    <div class="collapse show-cart" id="carritoCompras">
+      <h6 class="titulo-carrito">TU COMPRA</h6>
+
+      <button class="close-btn" data-toggle="collapse" data-target="#carritoCompras" type="button" aria-expanded="false" aria-controls="carritoCompras">X</button>
+
+      <div class="carrito-container">
+        <div class="producto-carrito">
+          <div class="img-container">
+            <img src="{% static 'bacca/assets/imgs/products/desktop.png' %}" alt="img-producto">
+          </div>
+
+          <div class="detalle-compra">
+            <div class="detalle-producto">
+              <div>
+                <h5>Stand Praga</h5>
+                <p>Colección Madera Nativa</p>
+              </div>
+              <div class="precio-producto">
+                <h6>$16000</h6>
+              </div>
+            </div>
+
+            <div class="selector-producto">
+              <div class="selector-producto-container">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+              </div>
+              <button class="borrar-btn">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-container">
+        <div class="checkout">
+          <div class="detalle-pago envio">
+            <h4>Envío</h4>
+            <h5>$500</h5>
+          </div>
+          <p class="despacho">Despacho entre 2-5 días hábiles</p>
+          <div class="detalle-pago total-compra">
+            <h4>Total</h4>
+            <h5>$16000</h5>
+          </div>
+          <div class="checkout-btn-container">
+            <button class="checkout-btn">
+              <span>Ir a Pagar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--FIN CARRITO-->
+
+
+
+  </div>
+  <!--  END MAIN SITE WRAPPER -->
+
+
+
+
+  </div>
+  <!-- END MAIN ROW - MAIN WRAPPER -->
+
+
+  <!-- CUSTOM SCRIPTS -->
+  <script src="{% static 'bacca/scripts/main.js' %}" type="module"></script>
+  <!-- CUSTOM SCRIPTS -->
+
+</body>
+
+</html>
