@@ -9,6 +9,7 @@ def index(request):
     return render(request, "bacca/index.html", context)
 
 
-def praga(request):
-    context = {}
-    return render(request, "bacca/views/praga.html", context)
+def productos(request, pk):
+    producto = Producto.objects.get(id_producto=pk)
+    context = {"producto": producto}
+    return render(request, "bacca/views/productos.html", context)

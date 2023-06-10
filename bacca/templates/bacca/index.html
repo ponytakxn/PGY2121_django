@@ -225,16 +225,19 @@
                 {% for producto in productos %}
                 <div class="col">
                   <div class="producto-container-producto">
-                    <a style="text-decoration: none" href="/productos/praga">
+                    <a
+                      style="text-decoration: none"
+                      href="productos/{{producto.id_producto}}"
+                    >
                       <div class="producto-overlay">
                         {% if producto.imagenes %}
                         <img
-                          src="../../../media/productos/desktop.png"
+                          src="../../../media/{{ producto.imagenes.first.url_imagen }}"
                           alt="imagen producto"
                         />
                         {% endif %}
                         <h3 class="text-light">
-                          {{producto.nombre}} $ {{producto.precio}}
+                          {{producto.nombre}} ${{producto.precio}}
                         </h3>
                         <div class="producto-detalle">
                           <div
