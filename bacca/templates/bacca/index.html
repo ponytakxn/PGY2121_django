@@ -227,7 +227,7 @@
                   <div class="producto-container-producto">
                     <a
                       style="text-decoration: none"
-                      href="productos/{{producto.id_producto}}"
+                      href="productos/{{producto.nombre|slugify}}"
                     >
                       <div class="producto-overlay">
                         {% if producto.imagenes %}
