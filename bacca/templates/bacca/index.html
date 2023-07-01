@@ -36,7 +36,7 @@
       <!-- NAVBAR -->
       <header class="navbar-blur-bg">
         <nav class="navbar navbar-expand-lg navbar-dark bg-none">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             <img src="{% static 'bacca/assets/svgs/logo_bacca.svg' %}" />
           </a>
           <button
@@ -54,7 +54,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav active ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Inicio</a>
+                <a class="nav-link" href="/">Inicio</a>
               </li>
 
               <li class="nav-item">
@@ -101,22 +101,11 @@
                 <a class="nav-link" href="#contacto">Contáctanos</a>
               </li>
 
-              <li class="nav-item nav-login">
+              {% if user.is_authenticated%}
+              <li class="nav-item">
                 <div class="nav-link">
                   <div class="nav-icons-container">
-                    <a id="login-form-btn" type="button">Iniciar Sesión</a>
-                    <img
-                      src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
-                      alt="Iniciar Sesión"
-                    />
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item nav-logout">
-                <div class="nav-link">
-                  <div class="nav-icons-container">
-                    <span id="user-email"></span>
+                    <span id="user-email">{{ user.username }}</span>
                     <img
                       src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
                       alt="Nombre usuario"
@@ -125,57 +114,31 @@
                 </div>
               </li>
 
-              <li class="nav-item nav-logout">
+              <li class="nav-item">
                 <div class="nav-link">
                   <div class="nav-icons-container">
-                    <a id="logout-btn" type="button">Cerrar Sesión</a>
+                    <a id="logout-btn" type="button" href="/logout">Cerrar Sesión</a>
                   </div>
                 </div>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <div class="nav-link">
+                  <div class="nav-icons-container">
+                    <a type="button" href="/login">Iniciar Sesión</a>
+                    <img
+                      src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
+                      alt="Iniciar Sesión"
+                    />
+                  </div>
+                </div>
+              </li>
+              {% endif %}
             </ul>
           </div>
         </nav>
       </header>
       <!-- END NAVBAR -->
-
-      <!--INICIO DE SESION-->
-      <div class="form-container">
-        <div class="box">
-          <h3>Inicio Sesión</h3>
-          <div class="input-box">
-            <form id="login-form" action="#">
-              <div class="email-box login-box">
-                <label for="login_email">Ingrese email</label>
-                <input
-                  class="login-input"
-                  placeholder="tuemail@correo.com"
-                  name="login_email"
-                  id="login_email"
-                />
-                <label id="login_email_err"></label>
-              </div>
-              <div class="password-box login-box">
-                <label for="login_clave">Contraseña</label>
-                <input
-                  class="login-input"
-                  type="Password"
-                  placeholder="*******"
-                  name="login_clave"
-                  id="login_clave"
-                />
-                <label id="login_clave_err"></label>
-              </div>
-              <div class="mt-5">
-                <button class="login-buttons login-btn" type="submit">
-                  Ingresar
-                </button>
-                <button class="login-buttons cancel-btn">Cancelar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!--END INICIO DE SESION-->
 
       <!--  MAIN SITE WRAPPER -->
       <div class="main">
@@ -203,13 +166,15 @@
               <p class="mb-0">"Hechos para <mark>toda la vida.</mark>"</p>
               <div class="blockquote-footer">Rolling Stones Magazine.</div>
             </blockquote>
-            <button class="btn btn-outline-light btn-sub-hero">
-              Ver todos nuestros productos
-              <img
-                src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}"
-                class="btn-sub-hero-icon--eye"
-              />
-            </button>
+            <a href="#productos">
+              <button class="btn btn-outline-light btn-sub-hero">
+                Ver todos nuestros productos
+                <img
+                  src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}"
+                  class="btn-sub-hero-icon--eye"
+                />
+              </button>
+            </a>
           </div>
         </div>
         <!--  END HERO -->
