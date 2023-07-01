@@ -230,7 +230,7 @@
       <!-- NAVBAR -->
       <header class="navbar-blur-bg">
         <nav class="navbar navbar-expand-lg navbar-dark bg-none">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             <img src="{% static 'bacca/assets/svgs/logo_bacca.svg' %}" />
           </a>
           <button
@@ -248,7 +248,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav active ml-auto">
               <li class="nav-item">
-                <a class="nav-link" style="color: black !important" href="../"
+                <a class="nav-link" style="color: black !important" href="/"
                   >Inicio</a
                 >
               </li>
@@ -257,7 +257,7 @@
                 <a
                   class="nav-link"
                   style="color: black !important"
-                  href="#funciones"
+                  href="/#funciones"
                   >Funciones</a
                 >
               </li>
@@ -266,7 +266,7 @@
                 <a
                   class="nav-link"
                   style="color: black !important"
-                  href="#productos"
+                  href="/#productos"
                   >Productos</a
                 >
               </li>
@@ -310,12 +310,31 @@
                 </div>
               </li>
 
+              {% if user.is_authenticated%}
               <li class="nav-item">
                 <div class="nav-link">
                   <div class="nav-icons-container">
-                    <a href="#" style="color: black !important"
-                      >Iniciar Sesión</a
-                    >
+                    <span id="user-email">{{ user.username }}</span>
+                    <img
+                      src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
+                      alt="Nombre usuario"
+                    />
+                  </div>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <div class="nav-link">
+                  <div class="nav-icons-container">
+                    <a id="logout-btn" type="button" href="/logout">Cerrar Sesión</a>
+                  </div>
+                </div>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <div class="nav-link">
+                  <div class="nav-icons-container">
+                    <a id="login-form-btn" type="button" href="/login">Iniciar Sesión</a>
                     <img
                       src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
                       alt="Iniciar Sesión"
@@ -323,6 +342,7 @@
                   </div>
                 </div>
               </li>
+              {% endif %}
             </ul>
           </div>
         </nav>

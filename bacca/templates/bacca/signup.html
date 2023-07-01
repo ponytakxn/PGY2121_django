@@ -1,0 +1,60 @@
+{% extends 'bacca/base.html' %}
+
+{% block content %}
+  <div class="box pt-5">
+    <div class="input-box pt-5">
+      <form id="login-form" method="POST" class="mt-5">
+        <h3 class="text-center mb-4 text-white">Signup</h3>
+        {% csrf_token %}
+        <div class="login-box">
+          <label for="login_username">Username</label>
+          <input
+            class="login-input"
+            placeholder=""
+            name="username"
+            id="login_username"
+          />
+          <label id="login_email_err"></label>
+        </div>
+        <div class="email-box login-box">
+          <label for="login_email">Email</label>
+          <input
+            class="login-input"
+            placeholder="tuemail@correo.com"
+            name="email"
+            id="login_email"
+          />
+          <label id="login_email_err"></label>
+        </div>
+        <div class="password-box login-box">
+          <label for="login_clave">Contraseña</label>
+          <input
+            class="login-input"
+            type="Password"
+            placeholder="*******"
+            name="password1"
+            id="login_clave"
+          />
+          <label id="login_clave_err"></label>
+        </div>
+        <div class="password-box login-box">
+          <label for="login_clave">Repita contraseña</label>
+          <input
+            class="login-input"
+            type="Password"
+            placeholder="*******"
+            name="password2"
+            id="login_clave"
+          />
+          <label id="login_clave_err"></label>
+        </div>
+        <p class="text-center text-white mt-3">{{ error }}</p>
+        <div class="mt-5 text-center">
+          <button class="login-buttons login-btn">
+            Signup
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
