@@ -5,14 +5,10 @@ from .models import Producto, Categoria, Imagen
 # Create your views here.
 
 
-def parseUrl(nombre):
-    return "-".join(nombre.lower().split(" "))
-
-
 def index(request):
     productos = Producto.objects.all()
 
-    context = {"productos": productos, "parseUrl": parseUrl}
+    context = {"productos": productos}
     return render(request, "bacca/index.html", context)
 
 
