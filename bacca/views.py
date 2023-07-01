@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Producto, Categoria, Imagen
+from .forms import ProductForm
 
 
 # Create your views here.
@@ -23,3 +24,8 @@ def productos(request, nom):
     producto = Producto.objects.get(nombre=decodeNom)
     context = {"producto": producto}
     return render(request, "bacca/views/productos.html", context)
+
+
+def createProduct(request):
+    context = {"form": ProductForm}
+    return render(request, "bacca/createProduct.html", context)
