@@ -81,7 +81,7 @@
                     aria-expanded="false"
                     aria-controls="carritoCompras"
                   >
-                    Carrito (2)
+                    Carrito (1)
                     <img
                       src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}"
                       alt="Carrito"
@@ -136,4 +136,87 @@
     <!-- END NAVBAR -->
     {% block content %}
     {% endblock %}
+
+    <!--FOOTER -->
+    <footer class="footer">
+      <div class="row d-flex footer-container">
+        <div class="col-sm-4 px-4">
+          <div class="container" id="suscripcion">
+            <div class="container-body">
+              <h5 class="container-title">Suscríbete al Newsletter!</h5>
+              <p class="container-text">& obtén descuentos exclusivos</p>
+              <form for="email" class="mb-3">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="tu-email@aqui.com"
+                  class="footer-input-email"
+                />
+              </form>
+              <p>
+                Al suscribirme acepto la
+                <a href="#">política de privacidad.</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 px-4 my-4 mt-sm-0">
+          <div class="container" id="rs">
+            <div class="container-body form-newsletter">
+              <h5 class="title">Síguenos</h5>
+              <div class="follow-list">
+                <a href="https://www.facebook.com/bacca.online/">
+                  <img
+                    src="{% static 'bacca/assets/imgs/logo-facebook.png' %}"
+                    alt="imagen-facebook"
+                    width="20"
+                    height="19"
+                  />
+                </a>
+                <a href="https://www.instagram.com/bacca.online/">
+                  <img
+                    src="{% static 'bacca/assets/imgs/pngwing.com.png' %}"
+                    alt="imagen-facebook"
+                    width="20"
+                    height="19"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 px-4 mt-4 mt-sm-0">
+          <div class="container" id="servicioc">
+            <div class="container-body">
+              <h5 class="title">Servicio Al Cliente</h5>
+              <ul class="container-body-list">
+                <li>
+                  <a class="link-footer" href="#">Contáctanos</a>
+                </li>
+                <li>
+                  <a class="link-footer" href="#">Política de Privacidad</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-sm-center py-3">
+        <div class="col-sm-auto">
+          <div class="container w-100 text-center">
+            <div class="container-body text-center w-100">
+              Diseñado por
+              <a href="https://github.com/ponytakxn">@ponytkxn</a>,
+              <a href="https://github.com/wwiiddeeweb">@wwiiddeeweb</a> y
+              <a href="https://github.com/MnzBl">@mnzbl</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--FIN FOOTER-->
   </body>
