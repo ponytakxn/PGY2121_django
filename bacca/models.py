@@ -14,6 +14,11 @@ class Imagen(models.Model):
     id_imagen = models.AutoField(db_column="idImagen", primary_key=True)
     url_imagen = models.ImageField(upload_to="productos", null=True)
 
+    def __str__(self):
+        imgUrl = str(self.url_imagen)
+        splittedUrl = imgUrl.split("/")
+        return splittedUrl[1]
+
 
 class Producto(models.Model):
     id_producto = models.AutoField(db_column="idProducto", primary_key=True)
