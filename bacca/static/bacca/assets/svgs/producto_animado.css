@@ -1,7 +1,7 @@
 .line-stand {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
-  animation: stand-appear 4s ease-out forwards;
+  animation: stand-appear 4s ease-out infinite;
 }
 
 @keyframes stand-appear {
