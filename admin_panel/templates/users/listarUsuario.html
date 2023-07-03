@@ -1,0 +1,41 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+    <h1>Lista de usuarios</h1>
+    <div class="table-responsive">
+      <table class="table table-hover table-info border-warning">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Is Admin</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for usuario in usuarios %}
+          <tr>
+            <th scope="row">{{ usuario.id }}</th>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            {% if usuario.is_superuser == 1 %}
+              <td>Yes</td>
+            {% else %}
+              <td>No</td>
+            {% endif %}
+            <td>
+              <a href="actualizar/{{usuario.id}}" name="edit" class="btn btn-primary">Modificar</a>
+              <a href="eliminar/{{usuario.id}}" name="delete" class="btn btn-danger">Eliminar</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    
+      </table>
+    </div>
+  </div>
+<!-- /page content -->
+{% endblock %}
