@@ -1,0 +1,49 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+    <h1>Lista de productos</h1>
+    <div class="table-responsive">
+      <table class="table table-hover table-info border-warning">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Count</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for producto in productos %}
+          <tr>
+            <th scope="row">{{ producto.id_producto }}</th>
+            <td>
+              <img
+              src="../../../media/{{ producto.imagenes.first.url_imagen }}"
+              alt="imagen producto"
+              height="50"
+              />
+            </td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.id_categoria }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.count }}</td>
+            <td>
+              <a href="actualizar/{{producto.id_producto}}" name="edit" class="btn btn-primary">Modificar</a>
+              <a href="eliminar/{{producto.id_producto}}" name="delete" class="btn btn-danger">Eliminar</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    
+      </table>
+    </div>
+  </div>
+<!-- /page content -->
+{% endblock %}

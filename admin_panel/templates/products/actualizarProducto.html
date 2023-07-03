@@ -1,0 +1,77 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+    <h1>Actualizar producto</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="username">ID Producto</label> 
+        <div class="col-8">
+          <div class="input-group">
+              <input id="id" name="id" type="text" class="form-control" readonly value="{{producto.id_producto}}">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="username">Nombre</label> 
+        <div class="col-8">
+          <div class="input-group">
+            <input id="nombre" name="nombre" type="text" class="form-control" required="required" value="{{producto.nombre}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-4 col-form-label">Categoria</label> 
+        <div class="col-8">
+          <div class="input-group">
+            <input id="categoria" name="categoria" placeholder="" type="text" class="form-control" required="required" value="{{producto.id_categoria}}" readonly>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="imagenes" class="col-4 col-form-label">Imágenes</label> 
+        <div class="col-8">
+          <select id="imagenes" name="imagenes" class="custom-select" required="required" multiple="multiple" readonly="readonly">
+            {% for imagen in producto.imagenes.all %}
+            <option value="{{imagen.id_imagen}}" disabled>{{ imagen }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="username">Precio</label> 
+        <div class="col-8">
+          <div class="input-group">
+            <input id="precio" name="precio" type="text" class="form-control" required="required" value="{{producto.precio}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="username">Stock</label> 
+        <div class="col-8">
+          <div class="input-group">
+            <input id="stock" name="stock" type="text" class="form-control" required="required" value="{{producto.stock}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="username">Count</label> 
+        <div class="col-8">
+          <div class="input-group">
+            <input id="count" name="count" type="text" class="form-control" required="required" value="{{producto.count}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button name="submit" type="submit" class="btn btn-warning">Actualizar Producto</button>
+          <p style="color: red;">{{ error }}</p>
+        </div>
+      </div>
+    </form>
+  </div>
+<!-- /page content -->
+{% endblock %}
