@@ -36,17 +36,19 @@
 
       <div class="selector-producto">
         <div class="selector-producto-container">
-          <a href="/restar/{{ value.producto_id }}"><button>-</button></a>
-          <span>{{ value.cantidad }}</span>
-          <a href="/agregar/{{ value.producto_id }}"><button>+</button></a>
+          <span>Cantidad: {{ value.cantidad }}</span>
         </div>
-        <a href="/eliminar/{{ value.producto_id }}"><button class="borrar-btn">Eliminar</button></a>
       </div>
     </div>
   </div>
 </div>
 
 {% endfor %}
+<div class="checkout-btn-container d-flex justify-content-center">
+  <a href="/carrito" class="checkout-btn">
+    <span>Ir al Carrito</span>
+  </a>
+</div>
 
 <div class="checkout-container">
   <div class="checkout">
@@ -56,9 +58,9 @@
       <h5>${{ total_compra }}</h5>
     </div>
     <div class="checkout-btn-container">
-      <button class="checkout-btn">
+      <a href="/checkout" class="checkout-btn">
         <span>Ir a Pagar</span>
-      </button>
+      </a>
     </div>
   </div>
 </div>

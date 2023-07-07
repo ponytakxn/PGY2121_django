@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import Producto, Categoria, Imagen
+from .models import Producto, Pedido
 from .Carrito import Carrito
 from django.utils.text import slugify
-from django.http import JsonResponse
-
+from django.contrib.auth.decorators import login_required
+import json
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -75,6 +76,13 @@ def productos(request, nom):
     return render(request, "bacca/views/productos.html", context)
 
 
+def sumar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.agregar(producto)
+    return redirect("carrito")
+
+
 def agregar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id_producto=producto_id)
@@ -88,17 +96,46 @@ def eliminar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id_producto=producto_id)
     carrito.eliminar(producto)
-    return redirect("home")
+    return redirect("carrito")
 
 
 def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id_producto=producto_id)
     carrito.restar(producto)
-    return redirect("home")
+    print(carrito.items())
+    return redirect("carrito")
 
 
 def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
-    return redirect("home")
+    return redirect("carrito")
+
+
+@login_required
+def carrito(request):
+    return render(request, "bacca/views/carrito_detalle.html")
+
+
+@login_required
+def checkout(request):
+    cart = Carrito(request)
+    if request.method == "POST":
+        pedido_carrito = cart.procesar_carrito()
+        pedido = Pedido.objects.create(
+            cliente=request.user,
+            carrito=json.dumps(pedido_carrito),
+            total=int(request.POST["total-compra"]),
+            tipo_pago=request.POST["tipo-pago"],
+        )
+        pedido.save()
+        for productos in pedido_carrito:
+            producto = Producto.objects.get(id_producto=productos.get("id_producto"))
+            producto.stock -= productos.get("cantidad")
+            producto.count += productos.get("cantidad")
+            producto.save()
+        cart.limpiar()
+        return redirect("home")
+    else:
+        return render(request, "bacca/views/checkout.html")

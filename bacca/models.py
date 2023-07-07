@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -33,3 +34,11 @@ class Producto(models.Model):
 
     def __str__(self):
         return str(self.nombre)
+
+
+class Pedido(models.Model):
+    id = models.AutoField(db_column="idPedido", primary_key=True)
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, db_column="cliente")
+    carrito = models.TextField()
+    total = models.IntegerField()
+    tipo_pago = models.CharField(max_length=20, blank=False, null=False)

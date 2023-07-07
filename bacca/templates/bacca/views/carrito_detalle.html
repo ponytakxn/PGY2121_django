@@ -1,0 +1,61 @@
+{% extends 'bacca/base.html' %}
+{% block content %}
+<div class="d-flex w-100 justify-content-center" style="margin-bottom: 200px;">
+  <div class="show-cart" style="position: relative; width: 70%; height: 105%; margin: 100px 0; border: solid 2px var(--dark-gray);">
+    <h6 class="titulo-carrito">TU COMPRA</h6>
+
+  {% if request.session.carrito.items %}
+  {% for key, value in request.session.carrito.items %}
+
+    <div class="carrito-container">
+      <div class="producto-carrito">
+        <div class="img-container">
+          <img
+            src="../../..{{ value.url_imagen }}"
+            alt="img-producto"
+          />
+        </div>
+
+        <div class="detalle-compra">
+          <div class="detalle-producto">
+            <div>
+              <h5>{{ value.nombre }}</h5>
+            </div>
+            <div class="precio-producto">
+              <h6>${{ value.acumulado }}</h6>
+            </div>
+          </div>
+
+          <div class="selector-producto">
+            <div class="selector-producto-container">
+              <a href="/restar/{{ value.producto_id }}"><button>-</button></a>
+              <span>{{ value.cantidad }}</span>
+              <a href="/sumar/{{ value.producto_id }}"><button>+</button></a>
+            </div>
+            <a href="/eliminar/{{ value.producto_id }}"><button class="borrar-btn">Eliminar</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    <div class="checkout-container">
+      <div class="checkout">
+        <p class="despacho">Despacho entre 2-5 días hábiles</p>
+        <div class="detalle-pago total-compra">
+          <h4>Total</h4>
+          <h5>${{ total_compra }}</h5>
+        </div>
+        <div class="checkout-btn-container">
+          <a href="/checkout" class="checkout-btn">
+            <span>Ir a Pagar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

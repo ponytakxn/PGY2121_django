@@ -52,3 +52,14 @@ class Carrito:
     def limpiar(self):
         self.session["carrito"] = {}
         self.session.modified = True
+
+    def procesar_carrito(self):
+        pedido = []
+        for key, producto in self.carrito.items():
+            producto = {
+                "id_producto": producto["producto_id"],
+                "cantidad": producto["cantidad"],
+            }
+            pedido.append(producto)
+        print(pedido)
+        return pedido
