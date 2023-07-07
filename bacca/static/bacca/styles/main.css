@@ -55,7 +55,7 @@ header {
 
 .navbar-blur-bg {
   -webkit-backdrop-filter: blur(16px);
-          backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .navbar {
@@ -63,8 +63,7 @@ header {
 }
 
 .navbar-dark {
-  color: #fdfdfd;
-  color: var(--main-white);
+  color: var(--dark-gray);
 }
 
 .navbar-nav {
@@ -72,8 +71,8 @@ header {
   font-weight: 700;
   gap: 70px;
 
-  @media (max-width: 1200px){
-    gap:38px;
+  @media (max-width: 1200px) {
+    gap: 38px;
   }
 }
 
@@ -89,8 +88,7 @@ header {
 }
 
 .nav-item svg path {
-  fill: #fdfdfd;
-  fill: var(--main-white);
+  fill: var(--dark-gray);
 }
 
 .nav-icons-container {
@@ -102,28 +100,24 @@ header {
 .nav-icons-container button {
   border: none;
   background: none;
-  color: #fdfdfd;
-  color: var(--main-white);
+  color: var(--dark-gray);
 }
 
 
 .nav-link {
   padding: 0px 0px 4px 0px !important;
-  color: #fdfdfd !important;
-  color: var(--main-white) !important;
+  color: var(--dark-gray) !important;
 }
 
 .nav-link a {
-  color: #fdfdfd;
-  color: var(--main-white);
+  color: var(--dark-gray);
 }
 
 .nav-link:after {
   display: block;
   content: "";
   margin-top: 6px;
-  border-bottom: solid 2px #fdfdfd;
-  border-bottom: solid 2px var(--main-white);
+  border-bottom: solid 2px var(--dark-gray);
   transform: scaleX(0);
 }
 
@@ -133,13 +127,11 @@ header {
 }
 
 .nav-link:hover {
-  color: #fdfdfd;
-  color: var(--main-white);
+  color: var(--dark-gray);
 }
 
 .nav-link a:hover {
-  color: #fdfdfd;
-  color: var(--main-white);
+  color: var(--dark-gray);
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -167,8 +159,7 @@ div.navbar-collapse.collapse.show ul>li:nth-child(3):after {
   display: block;
   content: "";
   margin-top: 15px;
-  border-bottom: solid 3px #fdfdfd;
-  border-bottom: solid 3px var(--main-white);
+  border-bottom: solid 3px var(--dark-gray);
 }
 
 .navbar-toggler-icon-close {
@@ -589,7 +580,7 @@ input {
   top: 0;
   right: 0;
   background-color: rgb(255, 255, 255, .9);
-  z-index: 12;
+  z-index: 25;
   border-radius: 4px;
   padding: 0;
 }
@@ -672,7 +663,7 @@ input {
 }
 
 
-.selector-producto > div button {
+.selector-producto>div button {
   border-radius: 50%;
   border: none;
   background: none;

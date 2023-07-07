@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from .models import Producto, Categoria, Imagen
+from .Carrito import Carrito
+from django.utils.text import slugify
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -23,7 +24,7 @@ def signup(request):
                 )
                 user.save()
                 login(request, user)
-                return redirect("index")
+                return redirect("home")
             except IntegrityError:
                 context = {"error": "El usuario ya existe"}
                 return render(request, "bacca/signup.html", context)
@@ -34,7 +35,7 @@ def signup(request):
 
 def signout(request):
     logout(request)
-    return redirect("index")
+    return redirect("home")
 
 
 def signin(request):
@@ -51,7 +52,7 @@ def signin(request):
             return render(request, "bacca/signin.html", {"error": "Usuario no existe"})
         else:
             login(request, user)
-            return redirect("index")
+            return redirect("home")
 
 
 def index(request):
@@ -72,3 +73,32 @@ def productos(request, nom):
     producto = Producto.objects.get(nombre=decodeNom)
     context = {"producto": producto}
     return render(request, "bacca/views/productos.html", context)
+
+
+def agregar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    print(producto.imagenes.first().url_imagen.url)
+    slug = slugify(producto.nombre)
+    carrito.agregar(producto)
+    return redirect("productos", nom=slug)
+
+
+def eliminar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.eliminar(producto)
+    return redirect("home")
+
+
+def restar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.restar(producto)
+    return redirect("home")
+
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect("home")

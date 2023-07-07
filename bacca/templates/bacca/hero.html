@@ -1,0 +1,37 @@
+{% load static %}
+<!--  HERO -->
+<div class="hero">
+  <div class="scrolldown" id="scrollDown">
+    <img
+      src="{% static 'bacca/assets/svgs/icons/arrow_down.svg' %}"
+      class="scrolldown-icon"
+      alt=""
+    />
+  </div>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-container">
+    <object
+      id="dynamic-svg"
+      type="image/svg+xml"
+      data="{% static 'bacca/assets/svgs/producto_animado.svg' %}"
+    ></object>
+    <h2 class="text-light text-wrap">
+      Productos de calidad, hechos a manos por luthiers nacionales.
+    </h2>
+    <blockquote class="blockquote">
+      <p class="mb-0">"Hechos para <mark>toda la vida.</mark>"</p>
+      <div class="blockquote-footer">Rolling Stones Magazine.</div>
+    </blockquote>
+    <a href="#productos">
+      <button class="btn btn-outline-light btn-sub-hero">
+        Ver todos nuestros productos
+        <img
+          src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}"
+          class="btn-sub-hero-icon--eye"
+        />
+      </button>
+    </a>
+  </div>
+</div>
+<!--  END HERO -->

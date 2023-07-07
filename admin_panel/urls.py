@@ -66,4 +66,19 @@ urlpatterns = [
         user_passes_test(lambda u: u.is_superuser)(views.eliminarCategoria),
         name="eliminar-categoria",
     ),
+    path(
+        "imagenes/listar",
+        user_passes_test(lambda u: u.is_superuser)(views.listarImagenes),
+        name="listar-imagenes",
+    ),
+    path(
+        "imagenes/agregar",
+        user_passes_test(lambda u: u.is_superuser)(views.agregarImagen),
+        name="agregar-imagen",
+    ),
+    path(
+        "imagenes/eliminar/<int:id>",
+        user_passes_test(lambda u: u.is_superuser)(views.eliminarImagen),
+        name="eliminar-imagen",
+    ),
 ]

@@ -1,0 +1,114 @@
+<!--  SECCIÓN: CONTACTO -->
+<section class="section-contacto" id="contacto">
+  <div class="section-productos-grid">
+    <h1 class="text-light heading-grande mb-5">Contáctanos!</h1>
+    <div
+      class="container d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="row">
+        <form id="contact-form">
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="usr_pnombre">Primer Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usr_pnombre"
+                name="usr_pnombre"
+                value="Juanita"
+              />
+              <label id="usr_pnombre_err"></label>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="usr_papellido">Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usr_papellido"
+                name="usr_papellido"
+                value="Reyes"
+              />
+              <label id="usr_papellido_err"></label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="usr_comuna">Comuna</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usr_comuna"
+                name="usr_comuna"
+              />
+              <label id="usr_comuna_err"></label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="usr_provincia">Provincia</label>
+              <select
+                class="custom-select"
+                id="usr_provincia"
+                name="usr_provincia"
+              >
+                <option selected disabled value="">
+                  Seleccione...
+                </option>
+                <option>Valparaíso</option>
+                <option>Marga Marga</option>
+                <option>Petorca</option>
+                <option>Quillota</option>
+                <option>San Antonio</option>
+              </select>
+              <label id="usr_provincia_err"></label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="usr_codpostal">Código Postal</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usr_codpostal"
+                name="usr_codpostal"
+              />
+              <label id="usr_codpostal_err"></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="usr_solicitud"
+              >Escribe aquí tu solicitud:</label
+            >
+            <textarea
+              class="form-control"
+              id="usr_solicitud"
+              rows="3"
+              name="usr_solicitud"
+            ></textarea>
+            <label id="usr_solicitud_err"></label>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="usr_aceptocondiciones"
+                name="usr_aceptocondiciones"
+              />
+              <label
+                class="form-check-label"
+                for="usr_aceptocondiciones"
+              >
+                Acepto que Bacca me contacte de vuelta
+              </label>
+            </div>
+            <label id="usr_aceptocondiciones_err"></label>
+          </div>
+          <button class="btn btn-contacto checkout-btn" type="submit">
+            <span>Enviar Solicitud</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!--  FIN SECCIÓN: CONTACTO -->

@@ -1,0 +1,58 @@
+{% load static %}
+<!--  SECCIÓN: PRODUCTOS -->
+<section class="section-productos" id="productos">
+  <div class="section-productos-grid">
+    <h1 class="text-light heading-grande mb-5">Nuestros Productos</h1>
+    <div
+      class="container d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="row">
+        {% for producto in productos %}
+        <div class="col">
+          <div class="producto-container-producto">
+            <a
+              style="text-decoration: none"
+              href="productos/{{producto.nombre|slugify}}"
+            >
+              <div class="producto-overlay">
+                {% if producto.imagenes %}
+                <img
+                  src="../../../media/{{ producto.imagenes.first.url_imagen }}"
+                  alt="imagen producto"
+                />
+                {% endif %}
+                <h3 class="text-light">
+                  {{producto.nombre}} ${{producto.precio}}
+                </h3>
+                <div class="producto-detalle">
+                  <div
+                    class="row w-100 justify-content-center align-items-center"
+                  >
+                    <div
+                      class="col d-flex justify-content-center text-light"
+                    >
+                      Ver más
+                      <img
+                        src="{% static 'bacca/assets/svgs/icons/eye_icon.svg' %}"
+                      />
+                    </div>
+                    <div
+                      class="col d-flex justify-content-center text-light"
+                    >
+                      Ver Stock
+                      <img
+                        src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--  FIN SECCIÓN: PRODUCTOS -->

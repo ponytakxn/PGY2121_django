@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from bacca.models import Producto, Categoria, Imagen
+from .forms import UploadForm
 
 # Create your views here.
 TEMPLATE_DIRS = 'os.path.join(BASE_DIR, "templates")'
@@ -85,7 +86,11 @@ def agregarProducto(request):
             stock=request.POST["stock"],
             count=request.POST["count"],
         )
-        product.imagenes.set(request.POST.getlist("imagenes"))
+        imagenes = request.POST.getlist("imagenes")
+        imagen_ppal = request.POST.get("imagen_ppal")
+        imagenes.insert(0, imagen_ppal)
+
+        product.imagenes.set(imagenes)
         product.save()
         return redirect("listar-productos")
 
@@ -147,3 +152,25 @@ def eliminarCategoria(request, id):
     categoria_to_delete = Categoria.objects.get(id_categoria=id)
     categoria_to_delete.delete()
     return redirect("listar-categorias")
+
+
+def listarImagenes(request):
+    context = {"imagenes": Imagen.objects.all()}
+    return render(request, "imagenes/listarImagenes.html", context)
+
+
+def agregarImagen(request):
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("listar-imagenes")
+    else:
+        form = UploadForm()
+    return render(request, "imagenes/agregarImagen.html", {"form": form})
+
+
+def eliminarImagen(request, id):
+    image_to_delete = Imagen.objects.get(id_imagen=id)
+    image_to_delete.delete()
+    return redirect("listar-imagenes")

@@ -24,199 +24,223 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="{% static 'bacca/styles/login.css' %}" />
-    <link rel="stylesheet" href="{% static 'bacca/styles/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'bacca/styles/main.css' %}?v=2" />
+    <link rel="stylesheet" href="{% static 'bacca/styles/producto.css' %}" />
   </head>
 
-  <body>
+  <body class="container-fluid p-0">
+    <!--BLUR CONTAINER-->
+    <div id="blur-filter"></div>
+
+    <!-- MAIN ROW - MAIN WRAPPER -->
+    <div class="row no-gutters">
     <!-- NAVBAR -->
-    <header class="navbar-blur-bg">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-none">
-        <a class="navbar-brand" href="/">
-          <img src="{% static 'bacca/assets/svgs/logo_bacca.svg' %}" />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-          <span class="navbar-toggler-icon-close">X</span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav active ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Inicio</a>
-            </li>
+      <header class="navbar-blur-bg">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-none">
+          <a class="navbar-brand" href="/">
+            <img src="{% static 'bacca/assets/svgs/logo_bacca.svg' %}" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon-close">X</span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav active ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+              </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/#productos">Productos</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/#productos">Productos</a>
+              </li>
 
-            <li class="nav-item" role="button">
-              <div class="nav-link">
-                <div class="nav-icons-container">
-                  <span data-currency="CLP Peso" data-symbol="$" href="#"
-                    >CLP $</span
-                  >
-                  <img
-                    src="{% static 'bacca/assets/svgs/icons/currency_symbol.svg' %}"
-                    alt="Moneda"
-                    class="nav-link-carrito"
-                  />
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="nav-link">
-                <div class="nav-icons-container">
-                  <button
-                    data-toggle="collapse"
-                    data-target="#carritoCompras"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls="carritoCompras"
-                  >
-                    Carrito (1)
+              <li class="nav-item" role="button">
+                <div class="nav-link">
+                  <div class="nav-icons-container">
+                    <span data-currency="CLP Peso" data-symbol="$" href="#"
+                      >CLP $</span
+                    >
                     <img
-                      src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}"
-                      alt="Carrito"
+                      src="{% static 'bacca/assets/svgs/icons/currency_symbol.svg' %}"
+                      alt="Moneda"
                       class="nav-link-carrito"
                     />
-                  </button>
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/#contacto">Contáctanos</a>
-            </li>
-
-            {% if user.is_authenticated%}
-              <li class="nav-item">
-                <div class="nav-link">
-                  <div class="nav-icons-container">
-                    <span id="user-email">{{ user.username }}</span>
-                    <img
-                      src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
-                      alt="Nombre usuario"
-                    />
                   </div>
                 </div>
               </li>
 
+              {% if user.is_superuser %}
               <li class="nav-item">
-                <div class="nav-link">
-                  <div class="nav-icons-container">
-                    <a id="logout-btn" type="button" href="/logout">Cerrar Sesión</a>
-                  </div>
-                </div>
+                <a class="nav-link" href="/administrador">Admin Panel</a>
               </li>
-            {% else %}
+              {% endif %}
+
               <li class="nav-item">
-                <div class="nav-link">
-                  <div class="nav-icons-container">
-                    <a id="login-form-btn" type="button" href="/login">Iniciar Sesión</a>
-                    <img
-                      src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
-                      alt="Iniciar Sesión"
-                    />
-                  </div>
-                </div>
+                <a class="nav-link" href="/#contacto">Contáctanos</a>
               </li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-    </header>
+
+              {% if user.is_authenticated%}
+                <li class="nav-item">
+                  <div class="nav-link">
+                    <div class="nav-icons-container">
+                      <button
+                        data-toggle="collapse"
+                        data-target="#carritoCompras"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="carritoCompras"
+                      >
+                        {% if request.session.carrito.items %}
+                        Carrito ( {{ request.session.carrito.items|length }} )
+                        {% else %}
+                        Carrito (0)
+                        {% endif %}
+                        <img
+                          src="{% static 'bacca/assets/svgs/icons/cart_icon.svg' %}"
+                          alt="Carrito"
+                          class="nav-link-carrito"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <div class="nav-link">
+                    <div class="nav-icons-container">
+                      <span id="user-email">{{ user.username }}</span>
+                      <img
+                        src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
+                        alt="Nombre usuario"
+                      />
+                    </div>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <div class="nav-link">
+                    <div class="nav-icons-container">
+                      <a id="logout-btn" type="button" href="/logout">Cerrar Sesión</a>
+                    </div>
+                  </div>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <div class="nav-link">
+                    <div class="nav-icons-container">
+                      <a id="login-form-btn" type="button" href="/login">Iniciar Sesión</a>
+                      <img
+                        src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
+                        alt="Iniciar Sesión"
+                      />
+                    </div>
+                  </div>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </header>
     <!-- END NAVBAR -->
+
     {% block content %}
     {% endblock %}
 
     <!--FOOTER -->
-    <footer class="footer">
-      <div class="row d-flex footer-container">
-        <div class="col-sm-4 px-4">
-          <div class="container" id="suscripcion">
-            <div class="container-body">
-              <h5 class="container-title">Suscríbete al Newsletter!</h5>
-              <p class="container-text">& obtén descuentos exclusivos</p>
-              <form for="email" class="mb-3">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="tu-email@aqui.com"
-                  class="footer-input-email"
-                />
-              </form>
-              <p>
-                Al suscribirme acepto la
-                <a href="#">política de privacidad.</a>.
-              </p>
+      <footer class="footer">
+        <div class="row d-flex footer-container">
+          <div class="col-sm-4 px-4">
+            <div class="container" id="suscripcion">
+              <div class="container-body">
+                <h5 class="container-title">Suscríbete al Newsletter!</h5>
+                <p class="container-text">& obtén descuentos exclusivos</p>
+                <form for="email" class="mb-3">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="tu-email@aqui.com"
+                    class="footer-input-email"
+                  />
+                </form>
+                <p>
+                  Al suscribirme acepto la
+                  <a href="#">política de privacidad.</a>.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-sm-4 px-4 my-4 mt-sm-0">
-          <div class="container" id="rs">
-            <div class="container-body form-newsletter">
-              <h5 class="title">Síguenos</h5>
-              <div class="follow-list">
-                <a href="https://www.facebook.com/bacca.online/">
-                  <img
-                    src="{% static 'bacca/assets/imgs/logo-facebook.png' %}"
-                    alt="imagen-facebook"
-                    width="20"
-                    height="19"
-                  />
-                </a>
-                <a href="https://www.instagram.com/bacca.online/">
-                  <img
-                    src="{% static 'bacca/assets/imgs/pngwing.com.png' %}"
-                    alt="imagen-facebook"
-                    width="20"
-                    height="19"
-                  />
-                </a>
+          <div class="col-sm-4 px-4 my-4 mt-sm-0">
+            <div class="container" id="rs">
+              <div class="container-body form-newsletter">
+                <h5 class="title">Síguenos</h5>
+                <div class="follow-list">
+                  <a href="https://www.facebook.com/bacca.online/">
+                    <img
+                      src="{% static 'bacca/assets/imgs/logo-facebook.png' %}"
+                      alt="imagen-facebook"
+                      width="20"
+                      height="19"
+                    />
+                  </a>
+                  <a href="https://www.instagram.com/bacca.online/">
+                    <img
+                      src="{% static 'bacca/assets/imgs/pngwing.com.png' %}"
+                      alt="imagen-facebook"
+                      width="20"
+                      height="19"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 px-4 mt-4 mt-sm-0">
+            <div class="container" id="servicioc">
+              <div class="container-body">
+                <h5 class="title">Servicio Al Cliente</h5>
+                <ul class="container-body-list">
+                  <li>
+                    <a class="link-footer" href="#">Contáctanos</a>
+                  </li>
+                  <li>
+                    <a class="link-footer" href="#">Política de Privacidad</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-sm-4 px-4 mt-4 mt-sm-0">
-          <div class="container" id="servicioc">
-            <div class="container-body">
-              <h5 class="title">Servicio Al Cliente</h5>
-              <ul class="container-body-list">
-                <li>
-                  <a class="link-footer" href="#">Contáctanos</a>
-                </li>
-                <li>
-                  <a class="link-footer" href="#">Política de Privacidad</a>
-                </li>
-              </ul>
+        <div class="row justify-content-sm-center py-3">
+          <div class="col-sm-auto">
+            <div class="container w-100 text-center">
+              <div class="container-body text-center w-100">
+                Diseñado por
+                <a href="https://github.com/ponytakxn">@ponytakxn</a>,
+                <a href="https://github.com/wwiiddeeweb">@wwiiddeeweb</a> y
+                <a href="https://github.com/MnzBl">@mnzbl</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row justify-content-sm-center py-3">
-        <div class="col-sm-auto">
-          <div class="container w-100 text-center">
-            <div class="container-body text-center w-100">
-              Diseñado por
-              <a href="https://github.com/ponytakxn">@ponytkxn</a>,
-              <a href="https://github.com/wwiiddeeweb">@wwiiddeeweb</a> y
-              <a href="https://github.com/MnzBl">@mnzbl</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
     <!--FIN FOOTER-->
+    </div>
+    </div>
+
+    <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'bacca/scripts/main.js' %}" type="module"></script>
+    <!-- CUSTOM SCRIPTS -->
+
   </body>

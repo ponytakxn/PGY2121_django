@@ -22,8 +22,21 @@
       </select>
     </div>
   </div>
+
   <div class="form-group row">
-    <label class="col-4">Imágenes</label> 
+    <label class="col-4">Imagen Principal</label> 
+    <div class="col-8">
+      {% for imagen in imagenes %}
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input name="imagen_ppal" id="checkbox_ppal_{{forloop.counter}}" type="checkbox" class="custom-control-input" value="{{imagen.id_imagen}}"> 
+        <label for="checkbox_ppal_{{forloop.counter}}" class="custom-control-label">{{ imagen }}</label>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-4">Imágenes Carrusel</label> 
     <div class="col-8">
       {% for imagen in imagenes %}
       <div class="custom-control custom-checkbox custom-control-inline">
@@ -33,16 +46,7 @@
       {% endfor %}
     </div>
   </div>
-  <!-- <div class="form-group row">
-    <label for="imagenes" class="col-4 col-form-label">Imágenes</label> 
-    <div class="col-8">
-      <select id="imagenes" name="imagenes" class="custom-select" required="required" multiple="multiple">
-        {% for imagen in imagenes %}
-        <option value="{{imagen.id_imagen}}">{{ imagen }}</option>
-        {% endfor %}
-      </select>
-    </div>
-  </div> -->
+
   <div class="form-group row">
     <label for="precio" class="col-4 col-form-label">Precio</label> 
     <div class="col-8">
