@@ -2,16 +2,8 @@ import { VALIDATION_RULES } from "./constants/validation-rules.js";
 import { renderValidationLabel } from "./services/render-validation.service.js";
 import { inputExtractor } from "./utils/form.utils.js";
 
-// forms -> DOM references
-const loginFormElement = document.querySelector("#login-form");
-const contactFormElement = document.querySelector("#contact-form");
-
 const areAllInputsValid = (validationArr) => {
     return validationArr.every(value => value === true);
-}
-
-const bindEventListenerToForm = (formElement, prefix, eventType, onSuccessFn) => {
-    return formElement.addEventListener(eventType, event => eventHandler(event, prefix, onSuccessFn));
 }
 
 const eventHandler = (event, prefix, onSuccessFn) => {
@@ -28,6 +20,7 @@ const eventHandler = (event, prefix, onSuccessFn) => {
         }
     }
 }
+
 const validatorRunner = (inputs) => {
     const loginInputValidations = [];
     for (let input in inputs) {
@@ -44,18 +37,6 @@ const validatorRunner = (inputs) => {
         return console.log('[FORM VALIDATOR ERROR!] No se enviará al servidor');
     }
     return allValid;
-}
-
-// handler del formulario de contacto de la página principal
-const contactFormHandler = () => {
-    const onSuccessFn = () => {
-        console.log('[FORM VALIDATOR OK!] Enviando al servidor...');
-        setTimeout(() => {
-            console.log('[FORM VALIDATOR: RESPUESTA SERVIDOR] Formulario recibido!');
-        }, 1000)
-    }
-    const elementPrefix = "usr";
-    bindEventListenerToForm(contactFormElement, elementPrefix, "submit", onSuccessFn);
 }
 
 const menuHandler = () => {
@@ -88,5 +69,4 @@ const dynamicSvgFix = () => {
 // ejecuciones:
 
 dynamicSvgFix();
-contactFormHandler();
 menuHandler();
