@@ -113,7 +113,7 @@
                   </div>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" id="user-collapse" style="display: grid;">
                   <div class="nav-link">
                     <div class="nav-icons-container">
                       <span id="user-email">{{ user.username }}</span>
@@ -121,8 +121,15 @@
                         src="{% static 'bacca/assets/svgs/icons/user_icon.svg' %}"
                         alt="Nombre usuario"
                       />
+                      <img
+                      src="{% static 'bacca/assets/svgs/icons/currency_symbol.svg' %}"
+                      alt="Moneda"
+                      class="nav-link-carrito"
+                      id="arrow-icon"
+                      />
                     </div>
                   </div>
+                  <a href="/mis-pedidos" id="pedidos" style="color: var(--dark-gray); justify-self:end; text-decoration: none; visibility: hidden;">Mis pedidos</a>
                 </li>
 
                 <li class="nav-item">

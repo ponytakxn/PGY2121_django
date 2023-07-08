@@ -2,12 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import Producto, Pedido
+from .models import Producto, Pedido, FormularioContacto
 from .Carrito import Carrito
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 import json
-from django.template import RequestContext
 
 # Create your views here.
 
@@ -57,10 +56,20 @@ def signin(request):
 
 
 def index(request):
-    productos = Producto.objects.all()
-
-    context = {"productos": productos}
-    return render(request, "bacca/index.html", context)
+    if request.method == "POST":
+        suscrito = request.POST.get("usr_aceptocondiciones") == "true"
+        print("suscrito" + str(suscrito))
+        formulario = FormularioContacto.objects.create(
+            email=request.POST["usr_email"],
+            solicitud=request.POST["usr_solicitud"],
+            suscrito=suscrito,
+        )
+        formulario.save()
+        return redirect("home")
+    else:
+        productos = Producto.objects.all()
+        context = {"productos": productos}
+        return render(request, "bacca/index.html", context)
 
 
 def productos(request, nom):
@@ -103,7 +112,6 @@ def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id_producto=producto_id)
     carrito.restar(producto)
-    print(carrito.items())
     return redirect("carrito")
 
 
@@ -115,7 +123,8 @@ def limpiar_carrito(request):
 
 @login_required
 def carrito(request):
-    return render(request, "bacca/views/carrito_detalle.html")
+    context = {"productos": Producto.objects.all()}
+    return render(request, "bacca/views/carrito_detalle.html", context)
 
 
 @login_required
@@ -128,6 +137,7 @@ def checkout(request):
             carrito=json.dumps(pedido_carrito),
             total=int(request.POST["total-compra"]),
             tipo_pago=request.POST["tipo-pago"],
+            estado="pendiente",
         )
         pedido.save()
         for productos in pedido_carrito:
@@ -139,3 +149,21 @@ def checkout(request):
         return redirect("home")
     else:
         return render(request, "bacca/views/checkout.html")
+
+
+@login_required
+def misPedidos(request):
+    pedidos = Pedido.objects.all()
+    pedidos_parsed = []
+
+    for pedido in pedidos:
+        pedido.carrito = json.loads(pedido.carrito)
+        pedidos_parsed.append(pedido)
+
+    context = {
+        "productos": Producto.objects.all(),
+        "pedidos": pedidos_parsed,
+        "usuario": request.user,
+    }
+
+    return render(request, "bacca/views/pedidos.html", context)

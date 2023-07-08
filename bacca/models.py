@@ -42,3 +42,11 @@ class Pedido(models.Model):
     carrito = models.TextField()
     total = models.IntegerField()
     tipo_pago = models.CharField(max_length=20, blank=False, null=False)
+    estado = models.CharField(max_length=20, blank=False, null=False)
+
+
+class FormularioContacto(models.Model):
+    id = models.AutoField(db_column="idFormulario", primary_key=True)
+    email = models.CharField(max_length=40, blank=False, null=False)
+    solicitud = models.TextField()
+    suscrito = models.BooleanField()

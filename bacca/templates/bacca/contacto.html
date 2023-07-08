@@ -5,72 +5,39 @@
     <div
       class="container d-flex flex-column justify-content-center align-items-center"
     >
-      <div class="row">
-        <form id="contact-form">
+      <div class="row" style="width: 50vw;">
+        <form style="width: 100%;" method="POST">
+          {% csrf_token %}
+          {% if user.is_authenticated %}
           <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="usr_pnombre">Primer Nombre</label>
+            <div class="col-md-4 mb-3">
+              <label for="usr_email">Correo electrónico</label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
-                id="usr_pnombre"
-                name="usr_pnombre"
-                value="Juanita"
+                id="usr_email"
+                name="usr_email"
+                value="{{user.email}}"
+                placeholder="correo@example.com"
+                readonly
               />
-              <label id="usr_pnombre_err"></label>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="usr_papellido">Apellido</label>
-              <input
-                type="text"
-                class="form-control"
-                id="usr_papellido"
-                name="usr_papellido"
-                value="Reyes"
-              />
-              <label id="usr_papellido_err"></label>
             </div>
           </div>
+          {% else %}
           <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="usr_comuna">Comuna</label>
+            <div class="col-md-4 mb-3">
+              <label for="usr_email">Correo electrónico</label>
               <input
                 type="text"
                 class="form-control"
-                id="usr_comuna"
-                name="usr_comuna"
+                id="usr_email"
+                name="usr_email"
+                value=""
+                placeholder="correo@example.com"
               />
-              <label id="usr_comuna_err"></label>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="usr_provincia">Provincia</label>
-              <select
-                class="custom-select"
-                id="usr_provincia"
-                name="usr_provincia"
-              >
-                <option selected disabled value="">
-                  Seleccione...
-                </option>
-                <option>Valparaíso</option>
-                <option>Marga Marga</option>
-                <option>Petorca</option>
-                <option>Quillota</option>
-                <option>San Antonio</option>
-              </select>
-              <label id="usr_provincia_err"></label>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="usr_codpostal">Código Postal</label>
-              <input
-                type="text"
-                class="form-control"
-                id="usr_codpostal"
-                name="usr_codpostal"
-              />
-              <label id="usr_codpostal_err"></label>
             </div>
           </div>
+          {% endif %}
 
           <div class="form-group">
             <label for="usr_solicitud"
@@ -79,7 +46,7 @@
             <textarea
               class="form-control"
               id="usr_solicitud"
-              rows="3"
+              rows="5"
               name="usr_solicitud"
             ></textarea>
             <label id="usr_solicitud_err"></label>
@@ -90,7 +57,7 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                value=""
+                value="true"
                 id="usr_aceptocondiciones"
                 name="usr_aceptocondiciones"
               />

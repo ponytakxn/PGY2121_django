@@ -30,7 +30,15 @@
             <div class="selector-producto-container">
               <a href="/restar/{{ value.producto_id }}"><button>-</button></a>
               <span>{{ value.cantidad }}</span>
-              <a href="/sumar/{{ value.producto_id }}"><button>+</button></a>
+              {% for producto in productos %}
+                {% if producto.id_producto == value.producto_id %}
+                  {% if producto.stock > value.cantidad %}
+                    <a href="/sumar/{{ value.producto_id }}"><button>+</button></a>
+                  {% else %}
+                    <br/> <span>No hay más stock</span>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
             </div>
             <a href="/eliminar/{{ value.producto_id }}"><button class="borrar-btn">Eliminar</button></a>
           </div>

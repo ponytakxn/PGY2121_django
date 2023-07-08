@@ -1,0 +1,49 @@
+{% extends 'bacca/base.html' %}
+{% block content %}
+<body class="container-fluid p-0" style="background-color: var(--strong-yellow) !important;">
+<div class="d-flex w-100 justify-content-center" style="margin-bottom: 200px;">
+  <div class="show-cart" style="position: relative; width: 70%; height: 105%; margin: 100px 0; border: solid 2px var(--dark-gray); padding: 2rem 0;">
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <h1 style="text-align: center;">Mis pedidos</h1>
+      <div class="table-responsive">
+        <table class="table table-hover table-info border-warning">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Productos</th>
+              <th scope="col">Total</th>
+              <th scope="col">Tipo pago</th>
+              <th scope="col">Estado pedido</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pedido in pedidos %}
+              {% if pedido.cliente.id == usuario.id %}
+              <tr>
+                <th scope="row">{{ pedido.id }}</th>
+                <td class="d-flex" style="gap: 0.5rem;">
+                  {% for producto_carrito in pedido.carrito %}
+                    {% for producto in productos %}
+                      {% if producto.id_producto == producto_carrito.id_producto %}
+                      <p>{{ producto.nombre }}({{producto_carrito.cantidad}})</p>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </td>
+                <td>${{ pedido.total }}</td>
+                <td>{{ pedido.tipo_pago }}</td>
+                <td>{{ pedido.estado }}</td>
+              </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+      
+        </table>
+      </div>
+    </div>
+    <!-- /page content -->
+  </div>
+</div>
+</body>
+{% endblock %}

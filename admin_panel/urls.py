@@ -81,4 +81,29 @@ urlpatterns = [
         user_passes_test(lambda u: u.is_superuser)(views.eliminarImagen),
         name="eliminar-imagen",
     ),
+    path(
+        "pedidos/listar",
+        user_passes_test(lambda u: u.is_superuser)(views.listarPedidos),
+        name="listar-pedidos",
+    ),
+    path(
+        "pedidos/completar/<int:id>",
+        user_passes_test(lambda u: u.is_superuser)(views.completarPedido),
+        name="completar-pedido",
+    ),
+    path(
+        "pedidos/pendiente/<int:id>",
+        user_passes_test(lambda u: u.is_superuser)(views.retrocederPedido),
+        name="retroceder-pedido",
+    ),
+    path(
+        "pedidos/cancelar/<int:id>",
+        user_passes_test(lambda u: u.is_superuser)(views.cancelarPedido),
+        name="cancelar-pedido",
+    ),
+    path(
+        "solicitudes/listar",
+        user_passes_test(lambda u: u.is_superuser)(views.listarSolicitudes),
+        name="listar-solicitudes",
+    ),
 ]

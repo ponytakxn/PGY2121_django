@@ -1,6 +1,5 @@
 import { isChecked } from "../validators/boolean-validators.js";
 import { minLengthValidator, validEmailValidator } from "../validators/string-validators.js";
-import { toggleVisibility } from "../utils/ui.utils.js";
 
 export const VALIDATION_RULES
     = {

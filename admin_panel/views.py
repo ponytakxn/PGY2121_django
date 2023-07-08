@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from bacca.models import Producto, Categoria, Imagen
+from bacca.models import Producto, Categoria, Imagen, Pedido, FormularioContacto
 from .forms import UploadForm
+import json
 
 # Create your views here.
 TEMPLATE_DIRS = 'os.path.join(BASE_DIR, "templates")'
@@ -174,3 +175,45 @@ def eliminarImagen(request, id):
     image_to_delete = Imagen.objects.get(id_imagen=id)
     image_to_delete.delete()
     return redirect("listar-imagenes")
+
+
+def listarPedidos(request):
+    pedidos = Pedido.objects.all()
+    pedidos_parsed = []
+    for pedido in pedidos:
+        pedido.carrito = json.loads(pedido.carrito)
+        pedidos_parsed.append(pedido)
+    context = {"productos": Producto.objects.all(), "pedidos": pedidos_parsed}
+    return render(request, "pedidos/listarPedidos.html", context)
+
+
+def completarPedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    pedido.estado = "enviado"
+    pedido.save()
+    return redirect("listar-pedidos")
+
+
+def retrocederPedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    pedido.estado = "pendiente"
+    pedido.save()
+    return redirect("listar-pedidos")
+
+
+def cancelarPedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    pedido_carrito = json.loads(pedido.carrito)
+    for productos in pedido_carrito:
+        producto = Producto.objects.get(id_producto=productos.get("id_producto"))
+        producto.stock += productos.get("cantidad")
+        producto.count -= productos.get("cantidad")
+        producto.save()
+    pedido.estado = "cancelado"
+    pedido.save()
+    return redirect("listar-pedidos")
+
+
+def listarSolicitudes(request):
+    context = {"solicitudes": FormularioContacto.objects.all()}
+    return render(request, "formulariosContacto/listarFormularios.html", context)

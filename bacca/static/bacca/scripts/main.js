@@ -58,6 +58,21 @@ const contactFormHandler = () => {
     bindEventListenerToForm(contactFormElement, elementPrefix, "submit", onSuccessFn);
 }
 
+const menuHandler = () => {
+    const userIcon = document.querySelector('#user-collapse')
+    const pedidos = document.querySelector('#pedidos')
+    const arrowIcon = document.querySelector('#arrow-icon')
+    userIcon.addEventListener("click", () => {
+        pedidos.style.visibility === 'hidden' || pedidos.style.cssText === ''
+            ? pedidos.style.visibility = 'visible'
+            : pedidos.style.visibility = 'hidden';
+
+        arrowIcon.style.transform === 'rotate(180deg)'
+            ? arrowIcon.style.transform = 'rotate(0deg)'
+            : arrowIcon.style.transform = 'rotate(180deg)';
+    })
+}
+
 // fix para svg externo con animación de path
 const dynamicSvgFix = () => {
     const svgHolder = document.querySelector('object#dynamic-svg');
@@ -74,3 +89,4 @@ const dynamicSvgFix = () => {
 
 dynamicSvgFix();
 contactFormHandler();
+menuHandler();
